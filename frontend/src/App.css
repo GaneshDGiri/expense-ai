@@ -1,0 +1,415 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
+:root {
+  /* Color Palette */
+  --primary-color: #6366f1;   /* Indigo 500 */
+  --primary-hover: #4f46e5;   /* Indigo 600 */
+  --bg-color: #f3f4f6;        /* Light Gray Background */
+  --card-bg: #ffffff;         /* White Cards */
+  --text-dark: #1f2937;       /* Gray 800 */
+  --text-medium: #4b5563;     /* Gray 600 */
+  --text-light: #9ca3af;      /* Gray 400 */
+  
+  /* Status Colors */
+  --danger: #ef4444;          /* Red */
+  --success: #10b981;         /* Green */
+  --warning: #f59e0b;         /* Amber */
+  
+  /* AI Gradient */
+  --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* Spacing & Borders */
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   2. LAYOUT STRUCTURE
+   ========================================= */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1;
+}
+
+/* =========================================
+   3. NAVIGATION BAR
+   ========================================= */
+.navbar {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: white;
+  opacity: 1;
+}
+
+.logout-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================================
+   4. DASHBOARD GRID SYSTEM
+   ========================================= */
+.dashboard h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* --- Card Styles --- */
+.card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-title {
+  color: var(--text-medium);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+/* Special Card Variants */
+.bg-danger {
+  background-color: var(--danger) !important;
+  color: white !important;
+}
+.bg-success {
+  background-color: var(--success) !important;
+  color: white !important;
+}
+.text-red {
+  color: var(--danger);
+}
+
+/* AI Card Styling */
+.bg-ai {
+  grid-column: span 3; /* Spans full width */
+  background: var(--ai-gradient);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-ai h2 {
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bg-ai p {
+  line-height: 1.6;
+}
+
+/* =========================================
+   5. FORMS (Login, Register, Add Transaction)
+   ========================================= */
+.auth-form, .form-container {
+  background: white;
+  max-width: 450px;
+  width: 100%;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.auth-form h2, .form-container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   6. RESPONSIVE DESIGN (Media Queries)
+   ========================================= */
+
+/* Tablets (Portrait) */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns */
+  }
+  
+  .bg-ai {
+    grid-column: span 2; /* AI box spans 2 columns */
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr; /* Switch to 1 column */
+  }
+
+  .bg-ai {
+    grid-column: span 1; /* AI box spans 1 column */
+  }
+  
+  .card {
+    padding: 1.25rem;
+  }
+  
+  .card-value {
+    font-size: 1.75rem;
+  }
+
+  .auth-form, .form-container {
+    padding: 1.5rem;
+    margin: 1rem auto;
+    box-shadow: none; /* Flatter look on mobile */
+    border: 1px solid #e5e7eb;
+  }
+}
+.text-green {
+  color: var(--success);
+}
+/* --- Landing Page UI --- */
+.landing-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  text-align: center;
+}
+
+.landing-content {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 500px;
+  width: 90%;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.app-logo-large {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+}
+
+.app-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.app-name .highlight {
+  color: var(--primary-color);
+}
+
+.app-tagline {
+  color: var(--text-medium);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: var(--text-dark);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hide Navbar on Landing Page (Optional helper class) */
+.hidden { display: none !important; }
